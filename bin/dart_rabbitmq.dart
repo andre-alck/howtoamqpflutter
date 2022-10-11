@@ -1,24 +1,10 @@
 import "dart:io";
 import "package:dart_amqp/dart_amqp.dart";
 
-void main(
-  List<String> arguments,
-) {
-  if (arguments.isEmpty) {
-    print(
-      "Usage: receive_logs_direct.dart [info] [warning] [error]",
-    );
-    return;
-  }
+void main() {
+  Client client = Client();
 
-  ConnectionSettings settings = ConnectionSettings(
-    host: "localhost",
-  );
-
-  Client client = Client(
-    settings: settings,
-  );
-
+  // Verifica se o usuário finalizou o programa.
   ProcessSignal.sigint.watch().listen(
     (
       _,
@@ -38,10 +24,11 @@ void main(
     },
   );
 
-  List<String> routingKeys = arguments.sublist(
-    0,
-    2,
-  );
+  // 0 inclusivo, 2 exclusivo. routingKeys = primeiro e segundo argumento.
+  List<String> routingKeys = [
+    'info',
+  ];
+
   client.channel().then(
     (
       Channel channel,
