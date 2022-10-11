@@ -24,10 +24,16 @@ void main() {
     },
   );
 
-  // 0 inclusivo, 2 exclusivo. routingKeys = primeiro e segundo argumento.
-  List<String> routingKeys = [
-    'info',
-  ];
+  List<String> routingKeys = [];
+
+  print(
+    'RK:\t',
+  );
+  String? routingKey = stdin.readLineSync();
+
+  routingKeys.add(
+    routingKey ?? '',
+  );
 
   client.channel().then(
     (
